@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
-
 using namespace std;
 
 int add(int num1, int num2){
@@ -16,12 +15,14 @@ int mul(int num1, int num2){
     return num1 * num2;
 }
 
-int divide(int numerator, int denominator){
+float divide(int numerator, int denominator){
     if (denominator == 0){
         throw runtime_error("Division by zero is not allowed.");
     }
     
-    return numerator / denominator;
+    float num1 = numerator;
+    float num2 = denominator;
+    return num1 / num2;
 }
 
 int main(){
