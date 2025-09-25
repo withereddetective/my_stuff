@@ -29,5 +29,6 @@ public class bruh {
         points *= 2;
         points /= 5;
         System.out.println(points);
+
     }
 }

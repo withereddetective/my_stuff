@@ -42,5 +42,6 @@ public class gradeCalculator {
         System.out.println("Final Exam Grade: " + finalExam);
         System.out.println("Overall Grade: " + grade);
 
+        scan.close();
     }
 }

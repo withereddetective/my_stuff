@@ -32,5 +32,6 @@ public class mathPractice {
         int x = (int) (Math.random() * 6) + 1;
         System.out.println("your dice roll is: " + x);
 
+        scan.close();
     }
 }

@@ -26,5 +26,6 @@ public class CoffeeShop {
         System.out.println("tip - $" + tip);
         System.out.println("total - $" + finalTotal);
 
+        scan.close();
     }
 }

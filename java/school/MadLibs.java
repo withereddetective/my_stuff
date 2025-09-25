@@ -49,5 +49,6 @@ public class MadLibs {
         System.out.println("Inside, the " + ansAnimal + " was waiting. 'You passed the test,' it said. 'Now take this " + ansBackpack + " and write your destiny.'");
         System.out.println("And thats how " + ansName + " became the legendary " + ansAnimal + " whisperer of " + ansPlace + ", known far and wide for his " + ansAdjective + " aura and his uncanny ability to summon woodland creatures with " + ansSilly + ".");
 
+        scan.close();
     }
 }
