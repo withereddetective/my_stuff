@@ -1,3 +1,7 @@
+//Kyle Haynes
+//5.3 Guided Practice: Using a while() Loop for Repetition
+//September 25th, 2025
+
 #include <iostream>
 using namespace std;
 
