@@ -71,5 +71,24 @@ public class suckyTerminalRPG {
         }
         printCurrentStats(health, gold);
 
+        boolean decision3 = userDecision("A goblin jumps out! Do you fight (1) or run (2)?", scan);
+        if (decision3 && weapon_have){
+            System.out.println("You fight bravely and win the engagement easily. +10 gold!");
+            gold += 10;
+        } else if (decision3){
+            System.out.println("You fight bravely but lose 10 health. +10 gold.");
+            health -= 10;
+            gold += 10;
+        } else {
+            System.out.println("You ran from the goblin.");
+        }
+        System.out.println("\n");
+
+        if (health == 0){
+            System.out.println("Health is 0");
+            System.out.println("Game Over");
+        } else {
+            System.out.println("Final Stats: " + name + ", Health = " + health + ", Gold = " + gold);
+        }
     }
 }
