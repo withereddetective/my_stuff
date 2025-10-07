@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class suckyTerminalRPG {
 
-    public boolean userDecision(String question, Scanner scan){
+    public static boolean userDecision(String question, Scanner scan){
 
         String decision;
         System.out.println(question);
@@ -22,19 +22,20 @@ public class suckyTerminalRPG {
         } catch (Exception a) {
             System.out.println("you managed to make an unknown error. how.");
             System.out.println("you get decision 1 for that.");
-        } finally {
-            return true;
         }
+        
+        return true;
+        
     }
 
-    public void printCurrentStats(int health, int gold){
+    public static void printCurrentStats(int health, int gold){
 
         System.out.println("Current stats: Health = " + health + ", Gold = " + gold);
         System.out.println("");
 
     }
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
         String name;
@@ -82,7 +83,6 @@ public class suckyTerminalRPG {
         } else {
             System.out.println("You ran from the goblin.");
         }
-        System.out.println("\n");
 
         if (health == 0){
             System.out.println("Health is 0");
