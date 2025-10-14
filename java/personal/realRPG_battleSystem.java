@@ -240,5 +240,6 @@ public class realRPG_battleSystem {
 
     public static void main(String[] args) {
         print_battle_sprite("susie_default");
+        fight_test();
     }
 }
