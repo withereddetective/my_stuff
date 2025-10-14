@@ -89,13 +89,11 @@ public class realRPG_battleSystem {
                 lineNumber++;
                 String line = fileScanner.nextLine();
 
-                if (lineNumber >= first_line || lineNumber <= last_line){
+                if (lineNumber >= first_line && lineNumber <= last_line){
                     System.out.println(line);
                 }
 
             }
-
-            fileScanner.close();
 
         } catch (FileNotFoundException e) {
 
