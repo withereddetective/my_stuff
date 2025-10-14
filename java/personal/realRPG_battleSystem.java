@@ -23,7 +23,7 @@ public class realRPG_battleSystem {
                 last_line = 67;
 
                 break;
-            case "ralsei_hidden_default":
+            case "ralseiCh1_default":
                 
                 first_line = 69;
                 last_line = 108;
@@ -65,7 +65,7 @@ public class realRPG_battleSystem {
                 last_line = 314;
 
                 break;
-            case "ralsei_hidden_attack":
+            case "ralseiCh1_attack":
                 
                 first_line = 316;
                 last_line = 348;
@@ -75,6 +75,102 @@ public class realRPG_battleSystem {
                 
                 first_line = 350;
                 last_line = 378;
+
+                break;
+            case "kris_act":
+                
+                first_line = 380;
+                last_line = 414;
+
+                break;
+            case "susie_act":
+                
+                first_line = 416;
+                last_line = 456;
+
+                break;
+            case "susie_rudeBuster":
+                
+                first_line = 458;
+                last_line = 517;
+
+                break;
+            case "susie_heal":
+                
+                first_line = 519;
+                last_line = 560;
+
+                break;
+            case "ralseiCh1_pacify":
+                
+                first_line = 562;
+                last_line = 606;
+
+                break;
+            case "ralsei_pacify":
+                
+                first_line = 608;
+                last_line = 646;
+
+                break;
+            case "ralseiCh1_healPrayer":
+                
+                first_line = 648;
+                last_line = 679;
+
+                break;
+            case "ralsei_healPrayer":
+                
+                first_line = 681;
+                last_line = 712;
+
+                break;
+            case "kris_item":
+                
+                first_line = 714;
+                last_line = 759;
+
+                break;
+            case "susie_item":
+                
+                first_line = 761;
+                last_line = 804;
+
+                break;
+            case "ralseiCh1_item":
+                
+                first_line = 806;
+                last_line = 838;
+
+                break;
+            case "ralsei_item":
+                
+                first_line = 840;
+                last_line = 870;
+
+                break;
+            case "kris_defend":
+                
+                first_line = 872;
+                last_line = 906;
+
+                break;
+            case "susie_defend":
+                
+                first_line = 908;
+                last_line = 958;
+
+                break;
+            case "ralseiCh1_defend":
+                
+                first_line = 960;
+                last_line = 1000;
+
+                break;
+            case "ralsei_defend":
+                
+                first_line = 1002;
+                last_line = 1040;
 
                 break;
             default:
@@ -143,6 +239,6 @@ public class realRPG_battleSystem {
     }
 
     public static void main(String[] args) {
-        print_battle_sprite("kris_default");
+        print_battle_sprite("susie_default");
     }
 }
