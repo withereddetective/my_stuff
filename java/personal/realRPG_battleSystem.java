@@ -1,8 +1,20 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class realRPG_battleSystem {
 
     public static void print_battle_sprite(String sprite_name){
+
+        File spriteFile = new File("java/personal/battle_sprites.txt");
+        try (Scanner fileScanner = new Scanner(spriteFile)){
+
+            while (fileScanner.hasNextLine()){
+                String line = fileScanner.nextLine();
+                System.out.println(line);
+            }
+
+        }
 
         switch (sprite_name) {
             case "kris_default":
@@ -436,6 +448,6 @@ public class realRPG_battleSystem {
     }
 
     public static void main(String[] args) {
-        print_battle_sprite("susie_default");
+        print_battle_sprite("kris_default");
     }
 }
