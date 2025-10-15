@@ -278,12 +278,13 @@ public class realRPG_battleSystem {
                 }
             }
 
-            System.out.println(elapsed);
+            System.out.print(elapsed);
             try {
                 Thread.sleep(1); // Print every millisecond
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.print("\b\b\b");
         }
 
         if (inputTime[0] == -1) {
