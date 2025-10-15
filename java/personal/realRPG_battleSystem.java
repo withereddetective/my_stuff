@@ -45,6 +45,10 @@ class partyMember {
             defence = 2;
             magic = 7;
 
+        } else {
+
+            throw new AssertionError();
+
         }
 
     }
@@ -252,6 +256,10 @@ public class realRPG_battleSystem {
 
     public static double fight(){
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("press enter to begin the attack");
+        scanner.nextLine();
+
         final long[] inputTime = { -1 };
 
         Thread inputThread = new Thread(() -> {
@@ -293,5 +301,6 @@ public class realRPG_battleSystem {
 
     public static void main(String[] args) {
         print_battle_sprite("susie_default");
+        fight();
     }
 }
