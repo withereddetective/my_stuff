@@ -2,6 +2,57 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+class partyMember {
+
+    String name, weapon, armor1, armor2;
+    int maxHealth, health, attack, defence, magic;
+
+    public partyMember(String memberName){
+
+        if (memberName.equals("kris")){
+
+            name = "kris";
+            weapon = "wood_blade";
+            armor1 = null;
+            armor2 = null;
+            maxHealth = 90;
+            health = 90;
+            attack = 10;
+            defence = 2;
+            magic = 0;
+
+        } else if (memberName.equals("susie")){
+        
+            name = "susie";
+            weapon = "mane_axe";
+            armor1 = null;
+            armor2 = null;
+            maxHealth = 110;
+            health = 110;
+            attack = 14;
+            defence = 2;
+            magic = 1;
+
+        } else if (memberName.equals("ralsei")){
+        
+            name = "ralsei";
+            weapon = "red_scarf";
+            armor1 = null;
+            armor2 = null;
+            maxHealth = 70;
+            health = 70;
+            attack = 8;
+            defence = 2;
+            magic = 7;
+
+        }
+
+    }
+
+
+
+}
+
 public class realRPG_battleSystem {
 
     public static void print_battle_sprite(String sprite_name){
@@ -199,7 +250,7 @@ public class realRPG_battleSystem {
 
     }
 
-    public static void fight_test(){
+    public static double fight(){
         Scanner scanner = new Scanner(System.in);
         final long[] inputTime = { -1 };
 
@@ -216,11 +267,11 @@ public class realRPG_battleSystem {
 
             if (inputTime[0] != -1) {
                 if (elapsed >= 950) {
-                    System.out.println("critical hit");
+                    System.out.println("critical hit\n");
+                    return 15.0;
                 } else {
-                    System.out.println("you have a damage multiplier of " + elapsed);
+                    return elapsed / 10;
                 }
-                break;
             }
 
             System.out.println(elapsed);
@@ -232,14 +283,15 @@ public class realRPG_battleSystem {
         }
 
         if (inputTime[0] == -1) {
-            System.out.println("missed");
+            System.out.println("missed\n");
+            return 0.0;
         }
 
         scanner.close();
+        return 0;
     }
 
     public static void main(String[] args) {
         print_battle_sprite("susie_default");
-        fight_test();
     }
 }
