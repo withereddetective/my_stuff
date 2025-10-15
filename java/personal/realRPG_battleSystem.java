@@ -50,11 +50,7 @@ class partyMember {
             throw new AssertionError();
 
         }
-
     }
-
-
-
 }
 
 public class realRPG_battleSystem {
