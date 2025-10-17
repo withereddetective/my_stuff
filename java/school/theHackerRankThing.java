@@ -66,8 +66,23 @@ public class theHackerRankThing {
     }
 
     public static void magic(){
+        Scanner scan = new Scanner(System.in);
 
-        
+        int a, b, c, d, e;
+        int counter = scan.nextInt();
+        for (int i = 0; i < counter; i++) {
+            
+            a = scan.nextInt();
+            b = scan.nextInt();
+            c = scan.nextInt();
+            d = scan.nextInt();
+            e = scan.nextInt();
+            scan.nextLine();
+
+            int result = ((a + b) * (c + d)) / e;
+            System.out.println(result);
+
+        }
 
     }
 
