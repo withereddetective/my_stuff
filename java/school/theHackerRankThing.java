@@ -70,6 +70,7 @@ public class theHackerRankThing {
 
         int a, b, c, d, e;
         int counter = scan.nextInt();
+        scan.nextLine();
         for (int i = 0; i < counter; i++) {
             
             a = scan.nextInt();
@@ -83,12 +84,73 @@ public class theHackerRankThing {
             System.out.println(result);
 
         }
+    }
 
+    public static void donkey(){
+        Scanner scan = new Scanner(System.in);
+
+        int counter = scan.nextInt();
+        scan.nextLine();
+        for (int i = 0; i < counter; i++) {
+            
+            System.out.println(scan.nextLine());
+
+        }
+    }
+
+    public static void donkey2(){
+        Scanner scan = new Scanner(System.in);
+
+        int counter = scan.nextInt();
+        scan.nextLine();
+        for (int i = 0; i < counter; i++) {
+            
+            int counter2 = scan.nextInt();
+            String saying = scan.nextLine();
+            for (int j = 0; j < counter2; i++) {
+                
+                System.out.println(saying);
+
+            }
+        }
+    }
+
+    public static void onions(){
+
+        Scanner scan = new Scanner(System.in);
+        boolean ifOnion = false;
+
+        while (scan.hasNext()){
+            while (scan.hasNext()){
+
+                String current_value = scan.next();
+
+                if (current_value.equals("onions")){
+
+                    ifOnion = true;
+
+                }
+
+            }
+
+            if (ifOnion){
+
+                System.out.println("ogres are like onions");
+
+            } else {
+
+                System.out.println("AAAAARGH");
+                
+            }
+
+            ifOnion = false;
+            scan.nextLine();
+        }
     }
 
     public static void main(String[] args) {
         
-        
+        System.out.print("hehehehaw");
 
     }
 }
