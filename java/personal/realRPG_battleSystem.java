@@ -2,9 +2,166 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+class Equipment{
+
+    int addedAttack = 0;
+    int addedDefence = 0;
+    int addedMagic = 0;
+    double addedMoney = 0;
+    String itemName = null;
+    String description = null;
+    String addedEffect = null;
+    String[] partyMembers_who_can_equip;
+
+    public Equipment(String name){
+
+        itemName = name;
+
+        switch (name) {
+            case "bounce blade":
+                
+                addedAttack = 2;
+                addedDefence = 1;
+
+                description = "A pink saber with a rubber blade. Weak, but increases defence.";
+
+                partyMembers_who_can_equip[0] = "kris";
+
+                break;
+            case "broken blade":
+                
+                description = "A rejected sword cut into 2 pieces. Not even you can equip this...";
+
+                partyMembers_who_can_equip[0] = null;
+
+                break;
+            case "mecha saber":
+                
+                addedAttack = 4;
+
+                description = "The blade extends when you press the hilt. CHA-CHK!";
+
+                partyMembers_who_can_equip[0] = "kris";
+
+                break;
+            case "saber10":
+                
+                addedAttack = 6;
+
+                description = "A saber made of 10 cactus needles. Fortunately, can deal more than 10 damage.";
+
+                partyMembers_who_can_equip[0] = "kris";
+
+                break;
+            case "spookysword":
+                
+                addedAttack = 2;
+
+                description = "A black-and-orange sword with a bat hilt.";
+
+                partyMembers_who_can_equip[0] = "kris";
+
+                break;
+            case "winglade":
+                
+                addedAttack = 8;
+                addedMoney = 0.05;
+
+                description = "A majestic sword with a white feathered hilt. Slightly increases money won.";
+
+                partyMembers_who_can_equip[0] = "kris";
+
+                break;
+            case "wood blade":
+                
+                addedAttack = 1;
+
+                description = "A wooden practice blade with a carbon-reinforced core.";
+
+                partyMembers_who_can_equip[0] = "kris";
+
+                break;
+            case "absorbax":
+                
+                addedAttack = 8;
+
+                description = "A long, curved axe with an indent. Scoop up HP when you attack.";
+
+                partyMembers_who_can_equip[0] = "susie";
+
+                break;
+            case "auto axe":
+                
+                addedAttack = 4;
+
+                description = "Make sure to charge it by plugging it into the wall.";
+
+                partyMembers_who_can_equip[0] = "susie";
+
+                break;
+            case "brave axe":
+                
+                addedAttack = 2;
+
+                description = "A glossy ax from a block warrior. Suitable for heroes.";
+
+                partyMembers_who_can_equip[0] = "susie";
+
+                break;
+            case "devils knife":
+                
+                addedAttack = 5;
+                addedMagic = 4;
+                addedEffect = "buster tp down";
+
+                description = "Skull-emblazoned scythe-ax. Reduces Rudebuster's cost by 10";
+
+                partyMembers_who_can_equip[0] = "susie";
+
+                break;
+            case "justice axe":
+                
+                addedAttack = 12;
+
+                description = "It has no special powers. However, in order to attain this item, you became much stronger!";
+
+                partyMembers_who_can_equip[0] = "susie";
+
+                break;
+            case "mane axe":
+                
+                description = "Beginner's ax forged from the mane of a dragon whelp.";
+
+                partyMembers_who_can_equip[0] = "susie";
+
+                break;
+            case "toxic axe":
+                
+                addedAttack = 6;
+
+                description = "An axe used to clear wastelands in a fetid swamp. Not poison but gross.";
+
+                partyMembers_who_can_equip[0] = "susie";
+
+                break;
+            case "red scarf":
+                
+                description = "A basic scarf made of lightly magical fiber.";
+
+                partyMembers_who_can_equip[0] = "ralsei";
+
+                break;
+            
+            default:
+                throw new AssertionError();
+        }
+    }
+}
+
 class partyMember {
 
-    String name, weapon, armor1, armor2;
+    String name, armor1, armor2;
+    Equipment weapon;
     int maxHealth, health, attack, defence, magic;
 
     public partyMember(String memberName){
@@ -12,7 +169,7 @@ class partyMember {
         if (memberName.equals("kris")){
 
             name = "kris";
-            weapon = "wood_blade";
+            weapon = new Equipment("wood blade");
             armor1 = null;
             armor2 = null;
             maxHealth = 90;
@@ -24,7 +181,7 @@ class partyMember {
         } else if (memberName.equals("susie")){
         
             name = "susie";
-            weapon = "mane_axe";
+            weapon = new Equipment("mane axe");
             armor1 = null;
             armor2 = null;
             maxHealth = 110;
@@ -36,7 +193,7 @@ class partyMember {
         } else if (memberName.equals("ralsei")){
         
             name = "ralsei";
-            weapon = "red_scarf";
+            weapon = new Equipment("red scarf");
             armor1 = null;
             armor2 = null;
             maxHealth = 70;
