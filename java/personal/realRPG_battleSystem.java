@@ -169,7 +169,7 @@ class partyMember {
         if (memberName.equals("kris")){
 
             name = "kris";
-            weapon = new Equipment("wood blade");
+            //weapon = new Equipment("wood blade");
             armor1 = null;
             armor2 = null;
             maxHealth = 90;
@@ -181,7 +181,7 @@ class partyMember {
         } else if (memberName.equals("susie")){
         
             name = "susie";
-            weapon = new Equipment("mane axe");
+            //weapon = new Equipment("mane axe");
             armor1 = null;
             armor2 = null;
             maxHealth = 110;
@@ -193,7 +193,7 @@ class partyMember {
         } else if (memberName.equals("ralsei")){
         
             name = "ralsei";
-            weapon = new Equipment("red scarf");
+            //weapon = new Equipment("red scarf");
             armor1 = null;
             armor2 = null;
             maxHealth = 70;
@@ -211,6 +211,15 @@ class partyMember {
 }
 
 public class realRPG_battleSystem {
+
+    public static int userChoice(String question){
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println(question);
+        System.out.print("Choice: ");
+        return scan.nextInt();
+
+    }
 
     public static void print_battle_sprite(String sprite_name){
 
@@ -453,8 +462,105 @@ public class realRPG_battleSystem {
         return 0;
     }
 
+    public static void battle(partyMember partyMember1, partyMember partyMember2, partyMember partyMember3){
+
+        String enemyName = "test_enemy";
+        int enemyAtk = 5;
+        int enemyDef = 4;
+        int enemyHealth = 1000;
+        int enemyMercy = 0;
+
+        int tp = 0;
+
+        String krisSpriteName = "kris_default";
+        String susieSpriteName = "susie_default";
+        String ralseiSpriteName = "ralsei_default";
+
+        String kris_decision = null;
+        String susie_decision = null;
+        String ralsei_decision = null;
+
+        print_battle_sprite(krisSpriteName);
+        print_battle_sprite(susieSpriteName);
+        print_battle_sprite(ralseiSpriteName);
+        boolean userCorrectDecision = true;
+        
+        if (partyMember1.health > 0){
+            while (userCorrectDecision){
+                int userDecision = userChoice("Do you want kris to fight(1), act(2), item(3), mercy(4), or defend(5)?: ");
+                switch (userDecision){
+
+                    case 1:
+                        kris_decision = "fight";
+                        krisSpriteName = "kris_attack";
+                        userCorrectDecision = false;
+                        break;
+                    case 2:
+                        System.out.println("i do not have that implemented yet.");
+                    case 3:
+                        System.out.println("i do not have that implemented yet.");
+                    case 4:
+                        kris_decision = "spare";
+                        krisSpriteName = "kris_act";
+                        userCorrectDecision = false;
+                        break;
+                    case 5:
+                        kris_decision = "defend";
+                        krisSpriteName = "kris_defend";
+                        userCorrectDecision = false;
+                        break;
+                    default:
+                        System.out.println("incorrect input");
+
+                }
+            }
+        } else {
+            krisSpriteName = "kris_downed";
+        }
+
+        print_battle_sprite(krisSpriteName);
+        print_battle_sprite(susieSpriteName);
+        print_battle_sprite(ralseiSpriteName);
+        userCorrectDecision = true;
+        
+        if (partyMember2.health > 0){
+            while (userCorrectDecision){
+                switch (userChoice("Do you want susie to fight(1), act(2), item(3), mercy(4), or defend(5)?: ")){
+
+                    case 1:
+                        susie_decision = "fight";
+                        susieSpriteName = "susie_attack";
+                        userCorrectDecision = false;
+                        break;
+                    case 2:
+                        System.out.println("i do not have that implemented yet.");
+                    case 3:
+                        System.out.println("i do not have that implemented yet.");
+                    case 4:
+                        susie_decision = "spare";
+                        susieSpriteName = "susie_act";
+                        userCorrectDecision = false;
+                        break;
+                    case 5:
+                        susie_decision = "defend";
+                        susieSpriteName = "susie_defend";
+                        userCorrectDecision = false;
+                        break;
+                    default:
+                        System.out.println("incorrect input");
+
+                }
+            }
+        } else {
+            susieSpriteName = "susie_downed";
+        }
+
+    }
+
     public static void main(String[] args) {
-        print_battle_sprite("susie_default");
-        fight();
+        partyMember kris = new partyMember("kris");
+        partyMember susie = new partyMember("susie");
+        partyMember ralsei = new partyMember("ralsei");
+        battle(kris, susie, ralsei);
     }
 }
