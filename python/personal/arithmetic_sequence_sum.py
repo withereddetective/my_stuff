@@ -1,4 +1,7 @@
 sum = 0
-for i in range(500):
-    sum += 3 + (i * 3)
+k = 500
+a = 3
+a_of_zero = 3
+for i in range(k):
+    sum += a_of_zero + (i * a)
 print(sum)
