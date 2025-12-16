@@ -97,11 +97,11 @@ while running:
         my_snake.body[0].left < 0 or 
         my_snake.body[0].bottom > SCREEN_HEIGHT or 
         my_snake.body[0].top < 0):
-        running = False # End game
+        running = False
 
     for segment in my_snake.body[1:]:
         if my_snake.body[0].colliderect(segment):
-            running = False # End game
+            running = False
             break
 
     screen.fill("black")
