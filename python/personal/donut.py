@@ -3,15 +3,15 @@ from time import sleep
 import os
 import sys
 
-screen_size = 40
-theta_spacing = 0.07
-phi_spacing = 0.02
+screen_size = 20
+theta_spacing = 0.12
+phi_spacing = 0.04
 illumination = np.fromiter(".,-~:;=!*#$@", dtype="<U1")
 
 A = 1
 B = 1
-R1 = 1
-R2 = 2
+R1 = 0.5
+R2 = 1
 K2 = 5
 K1 = screen_size * K2 * 3 / (8 * (R1 + R2))
 
@@ -48,7 +48,7 @@ def render_frame(A: float, B: float) -> np.ndarray:
     mask_L = L >= 0  # (90, 315)
     chars = illumination[L]  # (90, 315)
 
-    for i in range(90):
+    for i in range(len(theta)):
         # need bounds checking for xp and yp to prevent index errors
         # if the donut moves partially off screen due to K1 value
         valid_indices = (xp[i] >= 0) & (xp[i] < screen_size) & \
