@@ -40,12 +40,9 @@ class Apple:
 
     def spawn(self, snake_body):
         while True:
-            # Spawn coordinates must be a multiple of the grid size (20)
             x = random.randrange(0, self.screen_width, self.size)
             y = random.randrange(0, self.screen_height, self.size)
             self.rect.topleft = (x, y)
-            
-            # Ensure the apple doesn't spawn on top of the snake
             if not any(segment.colliderect(self.rect) for segment in snake_body):
                 break
 
@@ -92,21 +89,16 @@ while running:
             if event.key == pygame.K_RIGHT and my_snake.direction != ((-1, 0)):
                 my_snake.change_direction((1, 0))
 
-    # Game Logic Checks (Collisions)
-    
-    # Check collision with apple
     if my_snake.body[0].colliderect(my_apple.rect):
         my_snake.grow = True
         my_apple.spawn(my_snake.body)
     
-    # Check collision with walls
     if (my_snake.body[0].right > SCREEN_WIDTH or 
         my_snake.body[0].left < 0 or 
         my_snake.body[0].bottom > SCREEN_HEIGHT or 
         my_snake.body[0].top < 0):
         running = False # End game
 
-    # Check collision with self (start check from the 2nd segment onwards)
     for segment in my_snake.body[1:]:
         if my_snake.body[0].colliderect(segment):
             running = False # End game
