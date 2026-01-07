@@ -1,0 +1,217 @@
+import pygame, sys, random
+
+class Snake:
+    def __init__(self, screen, color, start_x, start_y, size):
+        self.screen = screen
+        self.color = color
+        self.size = size
+        self.body = [pygame.Rect(start_x, start_y, size, size)]
+        self.direction = (1, 0)
+        self.grow = False
+
+    def move(self):
+        head_x, head_y = self.direction
+        new_x = self.body[0].x + head_x * self.size
+        new_y = self.body[0].y + head_y * self.size
+        new_head = pygame.Rect(new_x, new_y, self.size, self.size)
+        self.body.insert(0, new_head)
+        if self.grow == True:
+            self.grow = False
+        else:
+            self.body.pop()
+
+    def change_direction(self, new_dir):
+        if new_dir * -1 != self.direction or new_dir * -1 != self.direction:
+            self.direction = new_dir
+
+    def draw(self):
+        for segment in self.body:
+            pygame.draw.rect(self.screen, self.color, segment)
+
+class Apple:
+    def __init__(self, screen, size, screen_width, screen_height):
+        self.screen = screen
+        self.size = size
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.rect = pygame.Rect(0, 0, size, size)
+        self.spawn([])
+
+    def spawn(self, snake_body):
+        while True:
+            x = random.randrange(0, self.screen_width, self.size)
+            y = random.randrange(0, self.screen_height, self.size)
+            self.rect.topleft = (x, y)
+            if not any(segment.colliderect(self.rect) for segment in snake_body):
+                break
+
+    def draw(self):
+        pygame.draw.rect(self.screen, "red", self.rect)
+
+def update_game_speed(snake_length):
+    speed_increase_interval = 5
+    ms_reduction_per_interval = 5
+    intervals_passed = max(0, (snake_length - 1) // speed_increase_interval)
+    new_delay = max(50, 150 - (intervals_passed * ms_reduction_per_interval))
+    pygame.time.set_timer(SCREEN_UPDATE, new_delay)
+
+class Button():
+	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
+		self.image = image
+		self.x_pos = pos[0]
+		self.y_pos = pos[1]
+		self.font = font
+		self.base_color, self.hovering_color = base_color, hovering_color
+		self.text_input = text_input
+		self.text = self.font.render(self.text_input, True, self.base_color)
+		if self.image is None:
+			self.image = self.text
+		self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+		self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
+
+	def update(self, screen):
+		if self.image is not None:
+			screen.blit(self.image, self.rect)
+		screen.blit(self.text, self.text_rect)
+
+	def checkForInput(self, position):
+		if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
+			return True
+		return False
+
+	def changeColor(self, position):
+		if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
+			self.text = self.font.render(self.text_input, True, self.hovering_color)
+		else:
+			self.text = self.font.render(self.text_input, True, self.base_color)
+
+pygame.init()
+
+SCREEN = pygame.display.set_mode((1280, 720))
+pygame.display.set_caption("Menu")
+
+BG = pygame.image.load("assets/Background.png")
+
+def get_font(size): # Returns Press-Start-2P in the desired size
+    return pygame.font.Font("assets/font.ttf", size)
+
+def play():
+    SCREEN_WIDTH = 600
+    SCREEN_HEIGHT = 600
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Snake Game")
+    clock = pygame.time.Clock()
+    SNAKE_SIZE = 20
+    my_snake = Snake(screen, "green", start_x=200, start_y=200, size=SNAKE_SIZE)
+    my_apple = Apple(screen, SNAKE_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+    SCREEN_UPDATE = pygame.USEREVENT
+    pygame.time.set_timer(SCREEN_UPDATE, 150)
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            if event.type == SCREEN_UPDATE:
+                my_snake.move()
+                update_game_speed(len(my_snake.body))
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP and my_snake.direction != ((0, 1)):
+                    my_snake.change_direction((0, -1))
+                if event.key == pygame.K_DOWN and my_snake.direction != ((0, -1)):
+                    my_snake.change_direction((0, 1))
+                if event.key == pygame.K_LEFT and my_snake.direction != ((1, 0)):
+                    my_snake.change_direction((-1, 0))
+                if event.key == pygame.K_RIGHT and my_snake.direction != ((-1, 0)):
+                    my_snake.change_direction((1, 0))
+
+        if my_snake.body[0].colliderect(my_apple.rect):
+            my_snake.grow = True
+            my_apple.spawn(my_snake.body)
+        
+        if (my_snake.body[0].right > SCREEN_WIDTH or 
+            my_snake.body[0].left < 0 or 
+            my_snake.body[0].bottom > SCREEN_HEIGHT or 
+            my_snake.body[0].top < 0):
+            running = False
+
+        for segment in my_snake.body[1:]:
+            if my_snake.body[0].colliderect(segment):
+                running = False
+                break
+
+        screen.fill("black")
+        my_apple.draw()
+        my_snake.draw()
+        pygame.display.flip()
+        clock.tick(60)
+
+    pygame.quit()
+    
+def options():
+    while True:
+        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+
+        SCREEN.fill("white")
+
+        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
+        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
+        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
+
+        OPTIONS_BACK = Button(image=None, pos=(640, 460), 
+                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_BACK.update(SCREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                    main_menu()
+
+        pygame.display.update()
+
+def main_menu():
+    while True:
+        SCREEN.blit(BG, (0, 0))
+
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+                            text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 400), 
+                            text_input="OPTIONS", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 550), 
+                            text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+
+        SCREEN.blit(MENU_TEXT, MENU_RECT)
+
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(SCREEN)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    play()
+                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    options()
+                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
+
+        pygame.display.update()
+
+main_menu()
