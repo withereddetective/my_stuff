@@ -70,6 +70,7 @@ SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
 
 running = True
+moved_this_tick = False
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -78,16 +79,22 @@ while running:
         if event.type == SCREEN_UPDATE:
             my_snake.move()
             update_game_speed(len(my_snake.body))
+            moved_this_tick = False
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and my_snake.direction != ((0, 1)):
-                my_snake.change_direction((0, -1))
-            if event.key == pygame.K_DOWN and my_snake.direction != ((0, -1)):
-                my_snake.change_direction((0, 1))
-            if event.key == pygame.K_LEFT and my_snake.direction != ((1, 0)):
-                my_snake.change_direction((-1, 0))
-            if event.key == pygame.K_RIGHT and my_snake.direction != ((-1, 0)):
-                my_snake.change_direction((1, 0))
+            if not moved_this_tick:
+                if event.key == pygame.K_UP and my_snake.direction != ((0, 1)):
+                    moved_this_tick = True
+                    my_snake.change_direction((0, -1))
+                if event.key == pygame.K_DOWN and my_snake.direction != ((0, -1)):
+                    moved_this_tick = True
+                    my_snake.change_direction((0, 1))
+                if event.key == pygame.K_LEFT and my_snake.direction != ((1, 0)):
+                    moved_this_tick = True
+                    my_snake.change_direction((-1, 0))
+                if event.key == pygame.K_RIGHT and my_snake.direction != ((-1, 0)):
+                    moved_this_tick = True
+                    my_snake.change_direction((1, 0))
 
     if my_snake.body[0].colliderect(my_apple.rect):
         my_snake.grow = True
