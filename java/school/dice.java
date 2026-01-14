@@ -3,10 +3,9 @@ public class dice {
 
     public static int roll(){
 
-        int[] possible_rolls = {1, 2, 3, 4, 5, 6};
         int the_roll = (int) ((Math.random() * 6) + 0.5);
-        the_roll = (the_roll == 6) ? 0 : the_roll;
-        return possible_rolls[the_roll];
+        the_roll = (the_roll == 0) ? 6 : the_roll;
+        return the_roll;
 
     }
 
