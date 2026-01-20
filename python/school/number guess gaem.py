@@ -11,10 +11,9 @@ def get_answer_type() -> str:  # getting the guess type with error handling for 
     while True:
         guess_type = input("do you want to guess a range or a number? (range/num): ")
         if guess_type == 'range' or guess_type == 'num':
-            break
+            return guess_type
         else:
             print("i asked for you to either input range or num, nothing else.")
-    return guess_type
 
 def get_range(num: int):  # user inputs minimum and maximum and is told if the number is in the range
     guess_r1, guess_r2 = get_int_input("what do you want your minimum number in the range to be?: "), get_int_input("what do you want your maximum number in the range to be?: ")
