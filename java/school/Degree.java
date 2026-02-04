@@ -21,13 +21,15 @@ public class Degree {
         return degree;
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         File file = new File("degree.dat");
         Scanner scan = new Scanner(file);
 
         int numRuns = scan.nextInt();
         scan.nextLine();
 
-        for (int i = 0; i < numRuns; i++) { System.out.println(get_degree(scan_for_int_array(scan))); }
+        for (int i = 0; i < numRuns; i++) { 
+            System.out.println(get_degree(scan_for_int_array(scan))); 
+        }
     }
 }
