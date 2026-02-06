@@ -1,6 +1,7 @@
 import sys
 import os
 import random
+from time import sleep
 from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                              QHBoxLayout, QLabel, QPushButton, QDialog)
 from PySide6.QtGui import QPixmap
@@ -164,6 +165,7 @@ class BlackjackGUI(QMainWindow):
         
         self.intro_group = QSequentialAnimationGroup()
         self.add_animated_card(c, self.player_container, self.player_widgets, 600, False)
+        print(f"{self.player_cards}")
         self.intro_group.finished.connect(self.enable_controls)
         self.intro_group.start()
 
