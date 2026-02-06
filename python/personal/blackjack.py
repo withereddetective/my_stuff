@@ -89,10 +89,11 @@ class BlackjackGUI(QMainWindow):
             card = (random.randint(1, 13), random.randint(1, 4))
             if card not in self.used_cards:
                 self.used_cards.add(card)
-                return card[0] # returning only the rank value for score simplicity
+                return card
 
     def calculate_score(self, cards):
-        total = sum([min(c, 10) for c in cards])
+        ranks = [c[0] for c in cards]
+        total = sum([min(r, 10) for r in ranks])
         if 1 in cards and total <= 11: total += 10
         return total
 
@@ -110,18 +111,19 @@ class BlackjackGUI(QMainWindow):
         
         self.hit_btn.setEnabled(False)
         self.stand_btn.setEnabled(False)
+        self._dealer_playing = False
 
         self.intro_group = QSequentialAnimationGroup()
         
         # initial cards (dealer fast, player slow)
         for _ in range(2):
-            c = (random.randint(1, 13), random.randint(1, 4))
-            self.dealer_cards.append(c[0])
+            c = self.draw_card()
+            self.dealer_cards.append(c)
             self.add_animated_card(c, self.dealer_container, self.dealer_widgets, 200, len(self.dealer_cards)==2)
             
         for _ in range(2):
-            c = (random.randint(1, 13), random.randint(1, 4))
-            self.player_cards.append(c[0])
+            c = self.draw_card()
+            self.player_cards.append(c)
             self.add_animated_card(c, self.player_container, self.player_widgets, 600, False)
         
         self.intro_group.finished.connect(self.enable_controls)
@@ -151,25 +153,38 @@ class BlackjackGUI(QMainWindow):
         self.intro_group.addAnimation(anim)
 
     def enable_controls(self):
-        if self.calculate_score(self.player_cards) >= 21:
-            self.dealer_turn_logic()
-        else:
+        if self.calculate_score(self.player_cards) < 21:
             self.hit_btn.setEnabled(True)
             self.stand_btn.setEnabled(True)
 
     def player_hit_logic(self):
         self.hit_btn.setEnabled(False)
         self.stand_btn.setEnabled(False)
-        c = (random.randint(1, 13), random.randint(1, 4))
-        self.player_cards.append(c[0])
+        c = self.draw_card()
+        self.player_cards.append(c)
         
         self.intro_group = QSequentialAnimationGroup()
         self.add_animated_card(c, self.player_container, self.player_widgets, 600, False)
-        print(f"{self.player_cards}")
-        self.intro_group.finished.connect(self.enable_controls)
-        self.intro_group.start()
+
+        def after_hit():
+            if self.calculate_score(self.player_cards) >= 21:
+                self.dealer_turn_logic()
+            else:
+                self.enable_controls()
+
+        if self.intro_group.animationCount() ==0:
+            after_hit()
+        else:
+            self.intro_group.finished.connect(after_hit)
+            self.intro_group.start()
+        
+        
 
     def dealer_turn_logic(self):
+        if getattr(self, "_dealer_playing", False):
+            return
+        self._dealer_playing = True
+
         self.hit_btn.setEnabled(False)
         self.stand_btn.setEnabled(False)
         # 5. reveal dealer cards immediately on stand
@@ -177,13 +192,16 @@ class BlackjackGUI(QMainWindow):
             self.dealer_widgets[1].reveal()
             
         self.intro_group = QSequentialAnimationGroup()
-        while self.calculate_score(self.dealer_cards) < 17:
-            c = (random.randint(1, 13), random.randint(1, 4))
-            self.dealer_cards.append(c[0])
+        while self.calculate_score(self.dealer_cards) < 16:
+            c = self.draw_card()
+            self.dealer_cards.append(c)
             self.add_animated_card(c, self.dealer_container, self.dealer_widgets, 200, False)
         
-        self.intro_group.finished.connect(self.end_game)
-        self.intro_group.start()
+        if self.intro_group.animationCount() == 0:
+            self.end_game()
+        else:
+            self.intro_group.finished.connect(self.end_game)
+            self.intro_group.start()
 
     def end_game(self):
         p_score = self.calculate_score(self.player_cards)
