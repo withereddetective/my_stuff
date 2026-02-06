@@ -197,6 +197,8 @@ class BlackjackGUI(QMainWindow):
             self.dealer_cards.append(c)
             self.add_animated_card(c, self.dealer_container, self.dealer_widgets, 200, False)
         
+        print(f"{self.dealer_cards}")
+
         if self.intro_group.animationCount() == 0:
             self.end_game()
         else:
