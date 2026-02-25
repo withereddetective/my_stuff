@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "multiple",
+            "request": "launch",
+            "mainClass": "multiple",
+            "projectName": "my_stuff_27fee256"
+        },
+        {
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
