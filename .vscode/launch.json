@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MissionToMars",
+            "request": "launch",
+            "mainClass": "MissionToMars",
+            "projectName": "my_stuff_27fee256"
+        },
+        {
+            "type": "java",
             "name": "multiple",
             "request": "launch",
             "mainClass": "multiple",
