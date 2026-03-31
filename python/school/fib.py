@@ -1,9 +1,4 @@
 def fib(num: int) -> int:
-    if num == 1 or num == 2:
-        return 1
-    elif num <= 0:
-        return 0
-    
-    return fib(num-1) + fib(num-2)
+    return 1 if (num == 1 or num == 2) else (0 if (num <= 0) else fib(num-1) + fib(num-2))
 
 print(fib(int(input("give num: "))))
